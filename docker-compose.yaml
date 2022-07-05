@@ -1,0 +1,18 @@
+version: '3'
+services:
+    mysqldb:
+        image: mysql:8.0.29
+        environment:
+            - MYSQL_DATABASE=financial_summary
+            - MYSQL_ROOT_PASSWORD=ZAQ!2wsx
+        ports:
+            - 3306:3306
+        volumes:
+            - db-data:/var/lib/mysql
+    grafana-dashboard:
+        image: grafana/grafana:8.2.6
+        ports:
+            - 3000:3000
+volumes:
+    db-data:
+        driver: local
