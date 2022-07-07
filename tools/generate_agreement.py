@@ -1,5 +1,5 @@
 from simple_term_menu import TerminalMenu
-from main.nordigen import Nordigen
+from shared.nordigen import NordigenSession
 
 INSTITUTIONS = [
     'SANTANDER_PL_WBKPPLPP',
@@ -10,8 +10,8 @@ INSTITUTIONS = [
 class AgreementGenerator:
     nordigen = None
 
-    def __init__(self, secret_id, secret_key, institution_id):
-        self.nordigen = Nordigen(secret_id, secret_key)
+    def __init__(self, secret_id, secret_key):
+        self.nordigen = NordigenSession(secret_id, secret_key)
 
     def generate(self, institution_id):
         agreement_id = self.nordigen.create_agreement(institution_id)
@@ -23,7 +23,7 @@ def main():
     secret_key = input('SECRET_KEY: ')
     institution_id = INSTITUTIONS[TerminalMenu(INSTITUTIONS).show()]
     print('INSTITUTION_ID: {}'.format(institution_id))
-    url = AgreementGenerator(secret_id, secret_key).generate(institution_id)
-    print('Agreement url: {}'.format(url))
+    agreement = AgreementGenerator(secret_id, secret_key).generate(institution_id)
+    print('Agreement url: {} Id: {}'.format(agreement.link, agreement.id))
     
 main()
