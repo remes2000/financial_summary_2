@@ -1,6 +1,6 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.triggers.interval import IntervalTrigger
-from core import env, nordigen
+from core import env, nordigen, database
 
 def init():
     scheduler = BlockingScheduler()
@@ -11,5 +11,4 @@ def init():
 def fetch_data():
     accounts = nordigen.session.get_accounts()
     transactions = nordigen.session.get_transactions(accounts)
-    print(transactions)
-    
+    database.insert_transactions(transactions)

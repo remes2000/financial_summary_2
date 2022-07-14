@@ -3,16 +3,31 @@ services:
     mysqldb:
         image: mysql:8.0.29
         environment:
-            - MYSQL_DATABASE=financial_summary
-            - MYSQL_ROOT_PASSWORD=ZAQ!2wsx
+            MYSQL_DATABASE: ${MYSQL_DBNAME}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
         ports:
-            - 3306:3306
+            - 3306:${MYSQL_INTERNAL_PORT}
         volumes:
             - db-data:/var/lib/mysql
-    grafana-dashboard:
-        image: grafana/grafana:8.2.6
-        ports:
-            - 3000:3000
+    scheduler:
+        image: financial_summary_scheduler:latest
+        environment:
+            NORDIGEN_ID: ${NORDIGEN_ID}
+            NORDIGEN_SECRET: ${NORDIGEN_SECRET}
+            DB_HOST: mysqldb
+            DB_PORT: ${MYSQL_INTERNAL_PORT}
+            DB_USER: root
+            DB_PASSWORD: ${MYSQL_PASSWORD}
+            DB_NAME: ${MYSQL_DBNAME}
+        depends_on:
+            - mysqldb
+        restart: always
+    # grafana-dashboard:
+    #     image: grafana/grafana:8.2.6
+    #     ports:
+    #         - 3000:3000
+    #     depends_on:
+    #         - financial_summary_2
 volumes:
     db-data:
         driver: local

@@ -90,6 +90,8 @@ class NordigenAgreement:
 class NordigenTransaction:
     def __init__(self, response_body):
         self.id = response_body['transactionId']
-        self.amount = response_body['transactionAmount']['amount']
         self.title = response_body['remittanceInformationUnstructured']
+        amount_text = response_body['transactionAmount']['amount'].replace('.', '')
+        self.amount = int(amount_text)
         self.date = response_body['bookingDate']
+        self.source = response_body

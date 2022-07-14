@@ -1,0 +1,7 @@
+PyMySQL==1.0.2
+cryptography
+apscheduler==3.9.1
+mysql-connector-python==8.0.29
+requests==2.22.0
+simple_term_menu==1.5.0
+yoyo-migrations
