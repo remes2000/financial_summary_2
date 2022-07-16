@@ -9,3 +9,5 @@ DB_NAME = os.getenv('DB_NAME') or 'financial_summary'
 # NORDIGEN
 NORDIGEN_ID = os.getenv('NORDIGEN_ID') or ''
 NORDIGEN_SECRET = os.getenv('NORDIGEN_SECRET') or ''
+# SCHEDULER
+FETCH_INTERVAL_IN_SECONDS = int(os.getenv('FETCH_INTERVAL_IN_SECONDS')) or 10

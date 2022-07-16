@@ -2,6 +2,7 @@ import mysql.connector
 import yoyo
 import json
 from core import env
+from datetime import datetime
 
 def init():
     backend = yoyo.get_backend(get_connection_url())
@@ -45,16 +46,18 @@ def insert_transactions(transactions):
                 title,
                 date,
                 amount,
-                source
-            ) VALUES (%(nordigen_transaction_id)s, %(title)s, %(date)s, %(amount)s, %(source)s)
-            ON DUPLICATE KEY UPDATE amount = %(amount)s, source = %(source)s, last_edit_date = CURRENT_TIMESTAMP;
+                source,
+                create_date
+            ) VALUES (%(nordigen_transaction_id)s, %(title)s, %(date)s, %(amount)s, %(source)s, %(current_datetime)s)
+            ON DUPLICATE KEY UPDATE amount = %(amount)s, source = %(source)s, last_edit_date = %(current_datetime)s;
         """
         params = {
             'nordigen_transaction_id': transaction.id,
             'title': transaction.title,
             'date': transaction.date,
             'amount': transaction.amount,
-            'source': json.dumps(transaction.source)
+            'source': json.dumps(transaction.source),
+            'current_datetime': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
         queries.append(DbQuery(content, params))
     execute_query(queries)

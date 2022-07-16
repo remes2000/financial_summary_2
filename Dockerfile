@@ -2,6 +2,8 @@
 
 FROM python:3.8-slim-buster
 
+RUN apk update & apk add tzdata
+
 WORKDIR /app
 
 COPY . .

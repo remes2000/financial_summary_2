@@ -5,7 +5,7 @@ from core import env, nordigen, database
 def init():
     scheduler = BlockingScheduler()
     fetch_data()
-    scheduler.add_job(fetch_data, 'interval', seconds=10)
+    scheduler.add_job(fetch_data, 'interval', seconds=env.FETCH_INTERVAL_IN_SECONDS)
     scheduler.start()
 
 def fetch_data():

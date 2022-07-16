@@ -1,0 +1,15 @@
+version: '3'
+services:
+  scheduler:
+      image: financial_summary_scheduler:latest
+      environment:
+          NORDIGEN_ID: ${NORDIGEN_ID}
+          NORDIGEN_SECRET: ${NORDIGEN_SECRET}
+          DB_HOST: mysqldb
+          DB_PORT: ${MYSQL_INTERNAL_PORT}
+          DB_USER: root
+          DB_PASSWORD: ${DB_PASSWORD}
+          DB_NAME: ${DB_NAME}
+      depends_on:
+          - mysqldb
+      restart: always
