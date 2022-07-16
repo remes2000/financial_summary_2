@@ -1,4 +1,4 @@
-from core import database, nordigen, scheduler
+from core import nordigen, scheduler, database
 
 def main():
     print('Initializing database...')

@@ -10,6 +10,8 @@ services:
           DB_USER: root
           DB_PASSWORD: ${DB_PASSWORD}
           DB_NAME: ${DB_NAME}
+          FETCH_INTERVAL_IN_SECONDS: ${FETCH_INTERVAL_IN_SECONDS}
+          TZ: ${TZ}
       depends_on:
           - mysqldb
       restart: always
