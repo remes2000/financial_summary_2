@@ -25,3 +25,8 @@ App that helps mi keep track of my spending
     cd financial_summary_2
     python -m tools.clear_requisitions
 ```
+### Old system importer
+```
+    cd financial_summary_2
+    python -m tools.old_system_importer
+```
