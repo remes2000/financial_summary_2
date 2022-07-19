@@ -1,4 +1,5 @@
 from shared.nordigen import NordigenSession
+from simple_term_menu import TerminalMenu
 
 def main():
     secret_id = input('SECRET_ID: ')
@@ -7,10 +8,19 @@ def main():
     requisitions = list(map(lambda r: r['id'], session.get_requisitions()))
     print('Requisitions: ')
     print(requisitions)
-    if input('Clear all requisitions? [Y/n]') != 'Y':
+    if input('Clear all requisitions? [Y/n]') == 'Y':
+        clear_all_requisitions(session, requisitions)
         return
-    for requisition in requisitions:
-        print('Deleting requisition: ' + requisition + '...')
-        session.delete_requisition(requisition)
+    if input('Clear one of requisitions? [Y/n]') == 'Y':
+        print('Select requisition to clear')
+        clear_requisition(session, requisitions[TerminalMenu(requisitions).show()])
+
+def clear_all_requisitions(session, ids): 
+    for id in ids:
+        clear_requisition(session, id)
+
+def clear_requisition(session, id):
+    print('Deleting requisition: ' + id + '...')
+    session.delete_requisition(id)
 
 main()

@@ -18,7 +18,7 @@ class NordigenSession:
     def get_session(self):
         return self.manager.get_session()
 
-    def create_agreement(self, institution_id, max_historical_days = 14, access_valid_for_days = 3):
+    def create_agreement(self, institution_id, max_historical_days = 3, access_valid_for_days = 90):
         response = self.get_session().post(url = CREATE_AGREEMENT_URL, json = {
             'institution_id': institution_id,
             'max_historical_days': max_historical_days,
